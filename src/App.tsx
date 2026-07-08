@@ -3,7 +3,7 @@ import AppShell from "./components/AppShell";
 import { ConfigProvider } from "./context/ConfigContext";
 import ArenaPage from "./pages/ArenaPage";
 import HistoryPage from "./pages/HistoryPage";
-import SetupPage from "./pages/SetupPage";
+import SetupPage from "./pages/setup/SetupPage";
 
 const router = createBrowserRouter([
   {
