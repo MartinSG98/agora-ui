@@ -1,0 +1,47 @@
+/* Design tokens from docs/design/handoff.md (Control Room direction).
+   Every component styles itself from these variables, never raw values. */
+
+:root {
+  /* surfaces */
+  --bg-page: #0c0e12;
+  --bg-panel: #12151b;
+  --bg-recessed: #0e1116;
+  --border: #1d222c;
+  --border-strong: #2a3140;
+
+  /* text */
+  --text-primary: #e8eaf0;
+  --text-body: #c3c9d6;
+  --text-secondary: #8892a4;
+  --text-muted: #5c6475;
+
+  /* system / brand (cyan) */
+  --accent: oklch(0.72 0.14 200);
+  --accent-text: oklch(0.8 0.12 200);
+  --accent-fill: oklch(0.22 0.04 220);
+  --accent-fill-strong: oklch(0.25 0.05 220);
+  --accent-hover: oklch(0.78 0.13 200);
+
+  /* sides */
+  --pro: oklch(0.78 0.15 150);
+  --pro-fill: oklch(0.2 0.05 150);
+  --pro-tint: oklch(0.2 0.04 150);
+  --con: oklch(0.72 0.16 25);
+  --con-fill: oklch(0.2 0.06 25);
+  --con-tint: oklch(0.2 0.05 25);
+
+  /* verdict signals */
+  --ok: oklch(0.75 0.16 150);
+  --warn: oklch(0.8 0.12 85);
+  --bad: oklch(0.68 0.18 25);
+
+  /* type */
+  --font-ui: "Archivo", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* geometry */
+  --radius-panel: 6px;
+  --radius-inner: 4px;
+  --radius-chip: 3px;
+  --gutter: 28px;
+}

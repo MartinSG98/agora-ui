@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f0eee9;font-family:system-ui,sans-serif}
+a{color:#2a78d6}a:hover{color:#1b5fb3}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Control Room (<a class="dv-oid" href="#1b">1b</a>) — debate setup + mobile arena</span></div>
+<div class="dv-opts">
+
+<!-- ============ 2a SETUP — new debate config, control room style ============ -->
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Debate setup — rules, format, model lineup (POST /debates)</div>
+<div class="dv-card" style="width:1280px;background:#0c0e12;border-color:rgba(255,255,255,.08)">
+<div data-screen-label="2a Setup" style="font-family:'Archivo',sans-serif;color:#e8eaf0;padding:0 0 28px">
+
+  <!-- header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid #1d222c">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;letter-spacing:.08em">AGORA<span style="color:oklch(0.72 0.14 200)">_</span></span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5c6475">new debate</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;font-family:'JetBrains Mono',monospace;font-size:11px">
+      <span style="color:#5c6475">replay gallery</span>
+      <span style="color:#5c6475">leaderboard</span>
+      <span style="color:#8892a4;border:1px solid #2a3140;border-radius:3px;padding:4px 10px">mock_mode=1</span>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 380px;gap:20px;padding:24px 28px 0;align-items:start">
+
+    <!-- left: config -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+
+      <!-- motion -->
+      <div style="background:#12151b;border:1px solid #1d222c;border-radius:6px;padding:20px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:#5c6475">THE MOTION</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">42/300</span>
+        </div>
+        <div style="border:1px solid #2a3140;border-radius:4px;background:#0c0e12;padding:14px 16px;font-size:16px;color:#e8eaf0;display:flex;align-items:center">Remote work is better than office work<span style="display:inline-block;width:2px;height:19px;background:oklch(0.72 0.14 200);margin-left:2px"></span></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475;margin-top:8px">min 8 chars · debaters argue pro / con on this exact wording</div>
+      </div>
+
+      <!-- format -->
+      <div style="background:#12151b;border:1px solid #1d222c;border-radius:6px;padding:20px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:#5c6475;margin-bottom:12px">FORMAT</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="border:1px solid oklch(0.72 0.14 200);border-radius:5px;background:oklch(0.22 0.04 220);padding:16px;cursor:pointer">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-weight:700;font-size:14px">Oxford-style</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.8 0.12 200)">● selected</span>
+            </div>
+            <div style="font-size:12px;line-height:1.55;color:#8892a4;margin-top:6px">Formal. Opening → 2 rebuttal rounds → closing. No new evidence in closings.</div>
+          </div>
+          <div style="border:1px solid #2a3140;border-radius:5px;background:#0e1116;padding:16px;cursor:pointer">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-weight:700;font-size:14px;color:#8892a4">Casual</span>
+            </div>
+            <div style="font-size:12px;line-height:1.55;color:#5c6475;margin-top:6px">Lightweight. One rebuttal round, conversational tone allowed.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:16px;border-top:1px solid #1d222c;padding-top:16px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#5c6475">REBUTTAL ROUNDS</span>
+          <div style="display:flex;gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid #2a3140;border-radius:4px;color:#5c6475;cursor:pointer">0</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid #2a3140;border-radius:4px;color:#5c6475;cursor:pointer">1</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid oklch(0.72 0.14 200);border-radius:4px;background:oklch(0.22 0.04 220);color:oklch(0.8 0.12 200);font-weight:700;cursor:pointer">2</span>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">hard limit: 2 — enforced in code, not prompts</span>
+        </div>
+      </div>
+
+      <!-- model lineup -->
+      <div style="background:#12151b;border:1px solid #1d222c;border-radius:6px;padding:20px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:#5c6475">MODEL LINEUP</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">cost allowlist active · ~$0.02/debate live</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="border:1px solid #1d222c;border-left:3px solid oklch(0.78 0.15 150);border-radius:4px;background:#0e1116;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.78 0.15 150);letter-spacing:.1em">▲ DEBATER_PRO</div><div style="font-size:14px;font-weight:600;margin-top:3px">nova-lite</div></div>
+            <span style="font-family:'JetBrains Mono',monospace;color:#5c6475;font-size:12px">▾</span>
+          </div>
+          <div style="border:1px solid #1d222c;border-left:3px solid oklch(0.72 0.16 25);border-radius:4px;background:#0e1116;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.72 0.16 25);letter-spacing:.1em">▼ DEBATER_CON</div><div style="font-size:14px;font-weight:600;margin-top:3px">mistral-small</div></div>
+            <span style="font-family:'JetBrains Mono',monospace;color:#5c6475;font-size:12px">▾</span>
+          </div>
+          <div style="border:1px solid #1d222c;border-left:3px solid oklch(0.72 0.14 200);border-radius:4px;background:#0e1116;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.8 0.12 200);letter-spacing:.1em">JUDGE · BLIND</div><div style="font-size:14px;font-weight:600;margin-top:3px">nova-pro</div></div>
+            <span style="font-family:'JetBrains Mono',monospace;color:#5c6475;font-size:12px">▾</span>
+          </div>
+          <div style="border:1px solid #1d222c;border-left:3px solid #5c6475;border-radius:4px;background:#0e1116;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8892a4;letter-spacing:.1em">FACT_CHECKER</div><div style="font-size:14px;font-weight:600;margin-top:3px">nova-micro</div></div>
+            <span style="font-family:'JetBrains Mono',monospace;color:#5c6475;font-size:12px">▾</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:14px;border-top:1px solid #1d222c;padding-top:14px">
+          <span style="width:34px;height:18px;border-radius:9px;background:#2a3140;position:relative;flex:none;cursor:pointer"><span style="position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#8892a4"></span></span>
+          <span style="font-size:12px;color:#8892a4">Also run <strong style="color:#e8eaf0">position swap</strong> — same topic, sides exchanged. Separates model advantage from position bias.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- right: rules preview + launch -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="background:#0e1116;border:1px solid #1d222c;border-radius:6px;padding:18px 20px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:#5c6475;margin-bottom:12px">RULES · OXFORD</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;line-height:1.55;color:#8892a4">
+          <div style="display:flex;gap:10px"><span style="font-family:'JetBrains Mono',monospace;color:#5c6475;flex:none">01</span>Each statement must address the motion directly.</div>
+          <div style="display:flex;gap:10px"><span style="font-family:'JetBrains Mono',monospace;color:#5c6475;flex:none">02</span>Rebuttals must respond to at least one specific point made by the opponent.</div>
+          <div style="display:flex;gap:10px"><span style="font-family:'JetBrains Mono',monospace;color:#5c6475;flex:none">03</span>No new evidence may be introduced during closing statements.</div>
+          <div style="display:flex;gap:10px"><span style="font-family:'JetBrains Mono',monospace;color:#5c6475;flex:none">04</span>Every factual claim should cite a source actually consulted; fabricated citations are penalised harder than missing ones.</div>
+          <div style="display:flex;gap:10px"><span style="font-family:'JetBrains Mono',monospace;color:#5c6475;flex:none">05</span>Personal attacks and appeals to emotion in place of argument are penalised.</div>
+        </div>
+      </div>
+      <div style="background:#12151b;border:1px solid #1d222c;border-radius:6px;padding:18px 20px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:#5c6475;margin-bottom:12px">HARD LIMITS</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px">
+          <div style="display:flex;justify-content:space-between"><span style="color:#8892a4">max_response_tokens</span><span>600</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#8892a4">evidence_per_phase</span><span>3</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#8892a4">tool_loop_iterations</span><span>6</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#8892a4">judge_retries</span><span>1</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:oklch(0.72 0.14 200);color:#0c0e12;border-radius:5px;padding:16px;text-align:center;font-weight:800;font-size:15px;letter-spacing:.06em;cursor:pointer" style-hover="background:oklch(0.78 0.13 200)">START DEBATE →</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475;text-align:center">mock mode · $0.00 · deterministic replay stored</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 2b MOBILE ARENA ============ -->
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Mobile arena — 390px, stacked stage with sticky phase bar</div>
+<div class="dv-card" style="width:390px;background:#0c0e12;border-color:rgba(255,255,255,.08)">
+<div data-screen-label="2b Mobile Arena" style="font-family:'Archivo',sans-serif;color:#e8eaf0;padding:0 0 20px">
+
+  <!-- header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #1d222c">
+    <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.08em">AGORA<span style="color:oklch(0.72 0.14 200)">_</span></span>
+    <div style="display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:10px">
+      <span style="width:6px;height:6px;border-radius:50%;background:oklch(0.75 0.16 150);box-shadow:0 0 6px oklch(0.75 0.16 150)"></span>
+      <span style="color:oklch(0.75 0.16 150)">LIVE · seq 47</span>
+    </div>
+  </div>
+
+  <!-- phase bar -->
+  <div style="display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid #1d222c;overflow:hidden">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:4px 8px;border:1px solid #2a3140;border-radius:3px;color:#5c6475;flex:none">OPENING</span>
+    <span style="color:#2a3140;flex:none">→</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:4px 8px;border:1px solid oklch(0.72 0.14 200);border-radius:3px;color:oklch(0.8 0.12 200);background:oklch(0.25 0.05 220);flex:none">REBUTTAL 1/2</span>
+    <span style="color:#2a3140;flex:none">→</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:4px 8px;border:1px solid #2a3140;border-radius:3px;color:#5c6475;flex:none">CLOSING</span>
+    <span style="color:#2a3140;flex:none">→</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:4px 8px;border:1px solid #2a3140;border-radius:3px;color:#5c6475;flex:none">VERIF…</span>
+  </div>
+
+  <!-- motion -->
+  <div style="padding:16px;border-bottom:1px solid #1d222c">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:#5c6475;margin-bottom:6px">MOTION</div>
+    <div style="font-size:16px;font-weight:600;line-height:1.35">Remote work is better than office work</div>
+  </div>
+
+  <!-- versus strip -->
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:12px 16px;gap:10px;border-bottom:1px solid #1d222c">
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:oklch(0.78 0.15 150);letter-spacing:.1em">▲ PRO</span>
+      <span style="font-size:12.5px;font-weight:600">nova-lite</span>
+    </div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">vs</span>
+    <div style="display:flex;flex-direction:column;gap:2px;text-align:right">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:oklch(0.72 0.16 25);letter-spacing:.1em">CON ▼</span>
+      <span style="font-size:12.5px;font-weight:600">mistral-small</span>
+    </div>
+  </div>
+
+  <!-- transcript feed -->
+  <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+    <div style="background:#12151b;border:1px solid #1d222c;border-left:3px solid oklch(0.78 0.15 150);border-radius:5px;padding:12px 14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:7px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:oklch(0.78 0.15 150);letter-spacing:.1em">▲ PRO · REBUTTAL</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:oklch(0.78 0.15 150)">● generating</span>
+      </div>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#c3c9d6">Controlled studies of distributed teams show output holding steady while commute hours return to workers <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:oklch(0.78 0.15 150);background:oklch(0.2 0.05 150);padding:1px 5px;border-radius:3px">src:4821 ✓</span><span style="display:inline-block;width:7px;height:13px;background:oklch(0.78 0.15 150);vertical-align:text-bottom;margin-left:3px"></span></p>
+    </div>
+    <div style="display:flex;justify-content:center">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8892a4;background:#0e1116;border:1px solid #1d222c;border-radius:99px;padding:5px 12px">✗ fact-check: claim#13 fabricated — src:1001 never consulted</span>
+    </div>
+    <div style="background:#12151b;border:1px solid #1d222c;border-left:3px solid oklch(0.72 0.16 25);border-radius:5px;padding:12px 14px;opacity:.75">
+      <div style="display:flex;justify-content:space-between;margin-bottom:7px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:oklch(0.72 0.16 25);letter-spacing:.1em">▼ CON · REBUTTAL</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5c6475">queued</span>
+      </div>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#8892a4">Waiting for pro to finish…</p>
+    </div>
+  </div>
+
+  <!-- bottom tab bar -->
+  <div style="display:flex;border-top:1px solid #1d222c;margin-top:4px">
+    <div style="flex:1;text-align:center;padding:12px 0 10px;border-top:2px solid oklch(0.72 0.14 200)"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.8 0.12 200)">STAGE</div></div>
+    <div style="flex:1;text-align:center;padding:12px 0 10px;border-top:2px solid transparent"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">FACTS</div></div>
+    <div style="flex:1;text-align:center;padding:12px 0 10px;border-top:2px solid transparent"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">JUDGE</div></div>
+    <div style="flex:1;text-align:center;padding:12px 0 10px;border-top:2px solid transparent"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">EVENTS</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: “verdict / results screen after judging” · “make <a class="dv-oid" href="#2a">2a</a>'s motion input show validation” · “interactive prototype of the full flow”</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Agora — live debate arena · three visual directions</span></div>
+<div class="dv-opts">
+
+<!-- ============ 1a THE TRIBUNAL — warm editorial, classical forum ============ -->
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>The Tribunal — warm editorial, classical forum, serif display</div>
+<div class="dv-card" style="width:1280px;background:#f6f2e9">
+<div data-screen-label="1a Arena" style="font-family:'Space Grotesk',sans-serif;color:#231e15;padding:0 0 36px">
+
+  <!-- header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 40px;border-bottom:1px solid #d8d0bd">
+    <div style="display:flex;align-items:baseline;gap:14px">
+      <span style="font-family:'Instrument Serif',serif;font-size:28px;letter-spacing:.02em">Agora</span>
+      <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a7f68">Oxford-style · 2 rebuttal rounds</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:22px">
+      <div style="display:flex;gap:18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase">
+        <span style="color:#b3a88e">Opening</span>
+        <span style="color:#231e15;border-bottom:2px solid oklch(0.55 0.12 40);padding-bottom:3px;font-weight:600">Rebuttal 1/2</span>
+        <span style="color:#b3a88e">Closing</span>
+        <span style="color:#b3a88e">Verification</span>
+        <span style="color:#b3a88e">Judging</span>
+      </div>
+      <span style="display:inline-flex;align-items:center;gap:7px;font-size:11px;color:#8a7f68"><span style="width:7px;height:7px;border-radius:50%;background:oklch(0.62 0.14 145)"></span>LIVE</span>
+    </div>
+  </div>
+
+  <!-- motion -->
+  <div style="text-align:center;padding:34px 60px 30px">
+    <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a7f68;margin-bottom:10px">The motion</div>
+    <div style="font-family:'Instrument Serif',serif;font-size:38px;line-height:1.15;max-width:760px;margin:0 auto">Remote work is better than office work</div>
+  </div>
+
+  <!-- arena -->
+  <div style="display:grid;grid-template-columns:1fr 380px 1fr;gap:24px;padding:0 40px;align-items:start">
+
+    <!-- PRO -->
+    <div style="background:#fdfbf5;border:1px solid #e2dac6;border-top:3px solid oklch(0.55 0.12 40);padding:24px 26px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-family:'Instrument Serif',serif;font-size:22px;color:oklch(0.5 0.13 40)">Pro</span>
+          <span style="font-size:12px;color:#8a7f68">nova-lite</span>
+        </div>
+        <span style="font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.5 0.13 40)">Speaking</span>
+      </div>
+      <p style="margin:0;font-size:14.5px;line-height:1.65;color:#3a3327">My opponent claims office presence drives collaboration, yet controlled studies of distributed teams show output holding steady while commute hours return to workers. Autonomy over one's schedule is not a perk — it is the mechanism <span style="background:oklch(0.93 0.03 40);border-bottom:1px solid oklch(0.7 0.1 40);padding:0 2px">(source: 4821)</span>.</p>
+      <span style="width:34px;height:16px;display:block"><svg width="34" height="16" viewBox="0 0 34 16"><circle cx="4" cy="8" r="3" fill="oklch(0.55 0.12 40)"><animate attributeName="opacity" values="1;.2;1" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="16" cy="8" r="3" fill="oklch(0.55 0.12 40)"><animate attributeName="opacity" values="1;.2;1" dur="1.2s" begin=".2s" repeatCount="indefinite"/></circle><circle cx="28" cy="8" r="3" fill="oklch(0.55 0.12 40)"><animate attributeName="opacity" values="1;.2;1" dur="1.2s" begin=".4s" repeatCount="indefinite"/></circle></svg></span>
+      <div style="border-top:1px solid #eae2cf;padding-top:14px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#8a7f68">Research notebook · 2/3 evidence calls</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-size:11.5px;padding:4px 10px;background:#f1ead7;border:1px solid #e0d6ba;border-radius:99px">search_sources “remote productivity”</span>
+          <span style="font-size:11.5px;padding:4px 10px;background:#f1ead7;border:1px solid #e0d6ba;border-radius:99px">get_source_content #4821</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUDGE center -->
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="background:#231e15;color:#f6f2e9;padding:26px 26px 22px;text-align:center">
+        <div style="width:44px;height:44px;margin:0 auto 12px;border:1px solid oklch(0.75 0.09 85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:20px;color:oklch(0.78 0.09 85)">⚖</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:20px">The Judge</div>
+        <div style="font-size:11.5px;color:#a99f87;margin-top:4px">nova-pro · scoring blind</div>
+        <div style="margin-top:14px;font-size:11px;line-height:1.5;color:#c7bda3;border-top:1px solid #3d362a;padding-top:12px">Sees only <span style="font-family:'JetBrains Mono',monospace;color:oklch(0.78 0.09 85)">participant_x</span> and <span style="font-family:'JetBrains Mono',monospace;color:oklch(0.78 0.09 85)">participant_y</span> — never sides or model names.</div>
+      </div>
+      <div style="background:#fdfbf5;border:1px solid #e2dac6;padding:20px 22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+          <span style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#8a7f68">Fact-checker</span>
+          <span style="font-size:11px;color:#8a7f68">nova-micro</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;gap:9px;align-items:baseline;font-size:12.5px;line-height:1.45"><span style="color:oklch(0.55 0.13 145);font-weight:600">✓</span><span>“output holding steady” — verified against #4821</span></div>
+          <div style="display:flex;gap:9px;align-items:baseline;font-size:12.5px;line-height:1.45"><span style="color:oklch(0.52 0.16 25);font-weight:600">✕</span><span>“73% of managers…” — citation fabricated, source not consulted</span></div>
+          <div style="display:flex;gap:9px;align-items:baseline;font-size:12.5px;line-height:1.45;color:#8a7f68"><span>…</span><span>verifying closing claims</span></div>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:11px;color:#8a7f68;line-height:1.6">Verdict revealed after judging<br>weighted rubric · 6 categories</div>
+    </div>
+
+    <!-- CON -->
+    <div style="background:#fdfbf5;border:1px solid #e2dac6;border-top:3px solid oklch(0.55 0.12 250);padding:24px 26px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-family:'Instrument Serif',serif;font-size:22px;color:oklch(0.48 0.12 250)">Con</span>
+          <span style="font-size:12px;color:#8a7f68">mistral-small</span>
+        </div>
+        <span style="font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#b3a88e">Waiting</span>
+      </div>
+      <p style="margin:0;font-size:14.5px;line-height:1.65;color:#3a3327">Serendipitous exchange cannot be scheduled. The strongest version of my opponent's case still concedes that mentorship, onboarding and tacit knowledge transfer degrade when the office empties — and those costs compound quietly over years.</p>
+      <div style="border-top:1px solid #eae2cf;padding-top:14px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#8a7f68">Research notebook · 0/3 evidence calls</div>
+        <div style="font-size:12px;color:#b3a88e;font-style:italic">No sources consulted this phase</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 1b THE CONTROL ROOM — dark, event-stream, mono ============ -->
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>The Control Room — dark ops console, state machine front and center</div>
+<div class="dv-card" style="width:1280px;background:#0c0e12;border-color:rgba(255,255,255,.08)">
+<div data-screen-label="1b Arena" style="font-family:'Archivo',sans-serif;color:#e8eaf0;padding:0 0 20px">
+
+  <!-- header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid #1d222c">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;letter-spacing:.08em">AGORA<span style="color:oklch(0.72 0.14 200)">_</span></span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5c6475">debate d-3f8a · oxford · mock_mode=0</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px">
+      <span style="color:#5c6475">SSE</span>
+      <span style="width:7px;height:7px;border-radius:50%;background:oklch(0.75 0.16 150);box-shadow:0 0 8px oklch(0.75 0.16 150)"></span>
+      <span style="color:oklch(0.75 0.16 150)">streaming · seq 47</span>
+    </div>
+  </div>
+
+  <!-- state machine pipeline -->
+  <div style="display:flex;align-items:center;gap:0;padding:18px 28px 16px;border-bottom:1px solid #1d222c">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:#5c6475;margin-right:18px">STATE<br>MACHINE</div>
+    <div style="display:flex;align-items:center;flex:1">
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 12px;border:1px solid #2a3140;border-radius:3px;color:#5c6475;background:#12151b">OPENING</span><span style="color:#2a3140">→</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 12px;border:1px solid oklch(0.72 0.14 200);border-radius:3px;color:oklch(0.8 0.12 200);background:oklch(0.25 0.05 220);box-shadow:0 0 12px oklch(0.4 0.1 210 / .5)">REBUTTAL 1/2</span><span style="color:#2a3140">→</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 12px;border:1px solid #2a3140;border-radius:3px;color:#5c6475;background:#12151b">CLOSING</span><span style="color:#2a3140">→</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 12px;border:1px solid #2a3140;border-radius:3px;color:#5c6475;background:#12151b">VERIFICATION</span><span style="color:#2a3140">→</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 12px;border:1px solid #2a3140;border-radius:3px;color:#5c6475;background:#12151b">JUDGING</span><span style="color:#2a3140">→</span></div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 12px;border:1px solid #2a3140;border-radius:3px;color:#5c6475;background:#12151b">COMPLETE</span>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5c6475;margin-left:18px">motion: <span style="color:#e8eaf0">“Remote work is better than office work”</span></div>
+  </div>
+
+  <!-- arena -->
+  <div style="display:grid;grid-template-columns:1fr 350px 1fr;gap:14px;padding:16px 28px 0;align-items:start">
+
+    <!-- PRO panel -->
+    <div style="background:#12151b;border:1px solid #1d222c;border-radius:6px;overflow:hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:oklch(0.2 0.04 150);border-bottom:1px solid #1d222c">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;color:oklch(0.78 0.15 150)">▲ PRO</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8892a4">nova-lite</span>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.78 0.15 150)">● generating</span>
+      </div>
+      <div style="padding:16px 18px;display:flex;flex-direction:column;gap:14px">
+        <p style="margin:0;font-size:13.5px;line-height:1.65;color:#c3c9d6">My opponent claims office presence drives collaboration, yet controlled studies of distributed teams show output holding steady while commute hours return to workers <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:oklch(0.78 0.15 150);background:oklch(0.2 0.05 150);padding:1px 6px;border-radius:3px">src:4821 ✓</span>. Autonomy over one's schedule is the mechanism.<span style="display:inline-block;width:8px;height:15px;background:oklch(0.78 0.15 150);vertical-align:text-bottom;margin-left:3px"></span></p>
+        <div style="display:flex;gap:14px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5c6475;border-top:1px solid #1d222c;padding-top:12px">
+          <span>tok <span style="color:#8892a4">412/600</span></span>
+          <span>evidence <span style="color:#8892a4">2/3</span></span>
+          <span>latency <span style="color:#8892a4">1.8s</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER: judge + fact-checker -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="background:#12151b;border:1px solid #2a3140;border-radius:6px;padding:18px;text-align:center">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:#5c6475;margin-bottom:8px">JUDGE · BLIND</div>
+        <div style="font-size:15px;font-weight:600">nova-pro</div>
+        <div style="display:flex;justify-content:center;gap:8px;margin-top:12px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 10px;border:1px dashed #2a3140;border-radius:3px;color:#8892a4">participant_x</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 10px;border:1px dashed #2a3140;border-radius:3px;color:#8892a4">participant_y</span>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475;margin-top:10px">random assignment · rubric-locked JSON</div>
+      </div>
+      <div style="background:#0e1116;border:1px solid #1d222c;border-radius:6px;padding:14px 16px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:#5c6475">FACT_CHECKER</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">nova-micro</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.5">
+          <div><span style="color:oklch(0.78 0.15 150)">✓ verified</span> <span style="color:#8892a4">claim#12 → src:4821</span></div>
+          <div><span style="color:oklch(0.68 0.18 25)">✗ fabricated</span> <span style="color:#8892a4">claim#13 → src:1001 never consulted</span></div>
+          <div><span style="color:oklch(0.8 0.12 85)">⚠ uncited</span> <span style="color:#8892a4">claim#14 → no source_id</span></div>
+          <div style="color:#5c6475">▸ verify_quote running…</div>
+        </div>
+      </div>
+      <div style="background:#12151b;border:1px solid #1d222c;border-radius:6px;padding:14px 16px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:#5c6475;margin-bottom:10px">RUBRIC WEIGHTS</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:#8892a4;width:110px;flex:none">argument</span><span style="height:4px;border-radius:2px;background:oklch(0.72 0.14 200);width:25%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">.25</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:#8892a4;width:110px;flex:none">evidence</span><span style="height:4px;border-radius:2px;background:oklch(0.72 0.14 200);width:20%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">.20</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:#8892a4;width:110px;flex:none">rebuttal</span><span style="height:4px;border-radius:2px;background:oklch(0.72 0.14 200);width:20%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">.20</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:#8892a4;width:110px;flex:none">consistency</span><span style="height:4px;border-radius:2px;background:oklch(0.72 0.14 200);width:15%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">.15</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:#8892a4;width:110px;flex:none">relevance</span><span style="height:4px;border-radius:2px;background:oklch(0.72 0.14 200);width:10%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">.10</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:#8892a4;width:110px;flex:none">compliance</span><span style="height:4px;border-radius:2px;background:oklch(0.72 0.14 200);width:10%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">.10</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CON panel -->
+    <div style="background:#12151b;border:1px solid #1d222c;border-radius:6px;overflow:hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:oklch(0.2 0.05 25);border-bottom:1px solid #1d222c">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;color:oklch(0.72 0.16 25)">▼ CON</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8892a4">mistral-small</span>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c6475">idle</span>
+      </div>
+      <div style="padding:16px 18px;display:flex;flex-direction:column;gap:14px">
+        <p style="margin:0;font-size:13.5px;line-height:1.65;color:#c3c9d6">Serendipitous exchange cannot be scheduled. Mentorship, onboarding and tacit knowledge transfer degrade when the office empties — costs that compound quietly over years <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:oklch(0.72 0.16 25);background:oklch(0.2 0.06 25);padding:1px 6px;border-radius:3px">src:1001 ✗</span>.</p>
+        <div style="display:flex;gap:14px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5c6475;border-top:1px solid #1d222c;padding-top:12px">
+          <span>tok <span style="color:#8892a4">598/600</span></span>
+          <span>evidence <span style="color:oklch(0.72 0.16 25)">0/3</span></span>
+          <span>latency <span style="color:#8892a4">3.1s</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- event ticker -->
+  <div style="margin:16px 28px 0;background:#0e1116;border:1px solid #1d222c;border-radius:6px;padding:10px 16px;display:flex;gap:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5c6475;overflow:hidden;white-space:nowrap">
+    <span><span style="color:#8892a4">45</span> turn_completed pro</span>
+    <span><span style="color:#8892a4">46</span> evidence_used verify_quote</span>
+    <span><span style="color:oklch(0.68 0.18 25)">47</span> claim_verdict fabricated</span>
+    <span><span style="color:#8892a4">48</span> turn_started con</span>
+    <span><span style="color:oklch(0.72 0.14 200)">▮</span> message_delta…</span>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 1c THE SCOREBOARD — bold match-night brutalist ============ -->
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>The Scoreboard — match-night energy, heavyweight type, red vs blue</div>
+<div class="dv-card" style="width:1280px;background:#f2f0ec;border-color:#111">
+<div data-screen-label="1c Arena" style="font-family:'Archivo',sans-serif;color:#111;padding:0 0 28px">
+
+  <!-- header -->
+  <div style="display:flex;align-items:stretch;border-bottom:3px solid #111">
+    <div style="padding:18px 28px;border-right:3px solid #111;display:flex;align-items:center">
+      <span style="font-weight:900;font-size:22px;letter-spacing:-.02em;text-transform:uppercase">Agora</span>
+    </div>
+    <div style="flex:1;display:flex;align-items:center;padding:0 28px;gap:14px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#777">Motion</span>
+      <span style="font-weight:600;font-size:15px">Remote work is better than office work</span>
+    </div>
+    <div style="padding:18px 28px;border-left:3px solid #111;display:flex;align-items:center;gap:10px;background:#111;color:#f2f0ec">
+      <span style="width:8px;height:8px;background:oklch(0.75 0.18 145);border-radius:50%"></span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">ROUND 1 OF 2</span>
+    </div>
+  </div>
+
+  <!-- VS banner -->
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;border-bottom:3px solid #111">
+    <div style="background:oklch(0.58 0.19 28);color:#fff;padding:26px 32px;display:flex;flex-direction:column;gap:2px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:.75">In favour</span>
+      <span style="font-weight:900;font-size:36px;letter-spacing:-.02em;text-transform:uppercase;line-height:1">Nova Lite</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.75;margin-top:6px">amazon · 2 evidence calls · 412 tok</span>
+    </div>
+    <div style="background:#f2f0ec;display:flex;align-items:center;padding:0 26px;border-left:3px solid #111;border-right:3px solid #111">
+      <span style="font-weight:900;font-size:28px;font-style:italic">VS</span>
+    </div>
+    <div style="background:oklch(0.52 0.17 262);color:#fff;padding:26px 32px;display:flex;flex-direction:column;gap:2px;text-align:right">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:.75">Against</span>
+      <span style="font-weight:900;font-size:36px;letter-spacing:-.02em;text-transform:uppercase;line-height:1">Mistral Small</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.75;margin-top:6px">mistral · 0 evidence calls · 598 tok</span>
+    </div>
+  </div>
+
+  <!-- arena -->
+  <div style="display:grid;grid-template-columns:1fr 360px 1fr;align-items:stretch">
+
+    <!-- PRO column -->
+    <div style="padding:26px 30px;border-right:3px solid #111;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;background:oklch(0.58 0.19 28);color:#fff;padding:5px 12px">Rebuttal · speaking</span>
+      </div>
+      <p style="margin:0;font-size:15px;line-height:1.6;font-weight:500">My opponent claims office presence drives collaboration, yet controlled studies of distributed teams show output holding steady while commute hours return to workers. Autonomy is the mechanism <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#111;color:#f2f0ec;padding:2px 7px">SRC 4821</span></p>
+      <div style="margin-top:auto;border-top:2px solid #111;padding-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;border:2px solid #111;padding:4px 10px">search_sources ×2</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;border:2px solid #111;padding:4px 10px">get_source ×1</span>
+      </div>
+    </div>
+
+    <!-- CENTER: judge tower -->
+    <div style="display:flex;flex-direction:column">
+      <div style="background:#111;color:#f2f0ec;padding:22px 24px;text-align:center;flex:none">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.8 0.12 95)">The Judge</div>
+        <div style="font-weight:900;font-size:24px;text-transform:uppercase;margin-top:4px">Nova Pro</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;margin-top:8px;color:#999">BLINDFOLDED — sees X vs Y only</div>
+      </div>
+      <div style="border-top:3px solid #111;padding:18px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <span style="font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase">Fact check</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#777">nova-micro</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600"><span style="width:18px;height:18px;flex:none;background:oklch(0.75 0.18 145);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px">✓</span>Claim 12 verified — src 4821</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600"><span style="width:18px;height:18px;flex:none;background:oklch(0.55 0.2 28);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px">✕</span>Claim 13 fabricated — never consulted</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:#777"><span style="width:18px;height:18px;flex:none;border:2px solid #777;display:flex;align-items:center;justify-content:center;font-size:11px">…</span>Claim 14 checking</div>
+        <div style="margin-top:auto;border-top:2px solid #111;padding-top:12px">
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px"><span>FABRICATIONS</span><span style="font-weight:700">PRO 0 · CON 1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CON column -->
+    <div style="padding:26px 30px;border-left:3px solid #111;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;justify-content:flex-end">
+        <span style="font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;border:2px solid #111;color:#111;padding:3px 12px">Up next</span>
+      </div>
+      <p style="margin:0;font-size:15px;line-height:1.6;font-weight:500;text-align:right">Serendipitous exchange cannot be scheduled. Mentorship, onboarding and tacit knowledge degrade when the office empties — costs that compound quietly over years.</p>
+      <div style="margin-top:auto;border-top:2px solid #111;padding-top:12px;display:flex;justify-content:flex-end">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;border:2px solid oklch(0.55 0.2 28);color:oklch(0.5 0.2 28);padding:4px 10px;font-weight:700">NO SOURCES CONSULTED</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- phase strip -->
+  <div style="border-top:3px solid #111;display:flex">
+    <div style="flex:1;text-align:center;padding:12px 0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#999;border-right:2px solid #111;text-decoration:line-through">OPENING</div>
+    <div style="flex:1;text-align:center;padding:12px 0;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:#111;color:#f2f0ec;border-right:2px solid #111">REBUTTAL 1/2</div>
+    <div style="flex:1;text-align:center;padding:12px 0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#999;border-right:2px solid #111">CLOSING</div>
+    <div style="flex:1;text-align:center;padding:12px 0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#999;border-right:2px solid #111">VERIFICATION</div>
+    <div style="flex:1;text-align:center;padding:12px 0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#999">JUDGING</div>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: “build the rules/setup screen in the style of <a class="dv-oid" href="#1b">1b</a>” · “<a class="dv-oid" href="#1a">1a</a> but dark” · “mobile layout for <a class="dv-oid" href="#1c">1c</a>”</p>
+</section>
+
+</x-dc>
+</body>
+</html>
