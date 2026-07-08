@@ -1,0 +1,54 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px var(--gutter);
+  border-bottom: 1px solid var(--border);
+}
+
+.wordmark {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.wordmark-accent {
+  color: var(--accent);
+}
+
+.shell-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 18px;
+}
+
+.shell-nav-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 150ms ease-out;
+}
+
+.shell-nav-link:hover {
+  color: var(--text-primary);
+}
+
+.shell-nav-link.active {
+  color: var(--accent-text);
+}
+
+.shell-main {
+  flex: 1;
+  padding: 20px var(--gutter) var(--gutter);
+}
