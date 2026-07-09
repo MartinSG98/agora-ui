@@ -12,7 +12,9 @@ import "./Arena.css";
 import CenterColumn from "./CenterColumn";
 import DebaterPanel from "./DebaterPanel";
 import EventTicker from "./EventTicker";
+import MobileArena from "./MobileArena";
 import PhasePipeline from "./PhasePipeline";
+import { useIsMobile } from "./useIsMobile";
 import { useMetrics } from "./useMetrics";
 
 function StatusStrip({ debateId }: { debateId: string }) {
@@ -58,11 +60,12 @@ function ArenaView({ debateId }: { debateId: string }) {
 
 export default function ArenaPage() {
   const { debateId } = useParams();
+  const mobile = useIsMobile();
   if (!debateId) return null;
 
   return (
     <DebateStreamProvider debateId={debateId}>
-      <ArenaView debateId={debateId} />
+      {mobile ? <MobileArena /> : <ArenaView debateId={debateId} />}
     </DebateStreamProvider>
   );
 }

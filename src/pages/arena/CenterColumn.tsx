@@ -40,7 +40,7 @@ function winnerClass(winner: Winner): string {
   return winner === "draw" ? "draw" : winner;
 }
 
-function JudgeCard() {
+export function JudgeCard() {
   const { state } = useDebate();
   const judge = state.judge;
 
@@ -92,7 +92,7 @@ function truncate(text: string, length: number): string {
   return text.length > length ? `${text.slice(0, length - 1)}…` : text;
 }
 
-function FactCheckFeed() {
+export function FactCheckFeed() {
   const { state } = useDebate();
   const model = state.models?.fact_checker ?? "…";
   const verifying = state.phase === "verification";

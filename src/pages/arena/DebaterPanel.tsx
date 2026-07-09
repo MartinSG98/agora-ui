@@ -1,52 +1,15 @@
 // One side's stage panel: tinted header with model and status, the live
 // or latest statement with inline citation chips, and the footer stats.
 
-import { Fragment, type ReactNode } from "react";
 import type { Side } from "../../api/types";
 import { useDebate } from "../../stream/DebateStreamContext";
+import { buildCitationMarks, renderStatement } from "./citations";
 import type { SideStats } from "./useMetrics";
 
 const MAX_RESPONSE_TOKENS = 600; // mirrors the backend hard limit
 const MAX_EVIDENCE_PER_PHASE = 3;
 
-const TAGS: Record<Side, string> = { pro: "▲ PRO", con: "▼ CON" };
-
-const CITATION = /\(source:\s*([\d\s,]+)\)/g;
-
-/** Replace "(source: 123, 456)" citations with per-source chips. A chip
- * gets ✓ when a fact-check verdict supported that source for this side,
- * and ✗ when it came back fabricated. */
-function renderStatement(
-  text: string,
-  side: Side,
-  marks: Map<string, "ok" | "bad">,
-): ReactNode[] {
-  const nodes: ReactNode[] = [];
-  let last = 0;
-  for (const match of text.matchAll(CITATION)) {
-    nodes.push(text.slice(last, match.index));
-    const ids = match[1]
-      .split(",")
-      .map((id) => id.trim())
-      .filter(Boolean);
-    ids.forEach((id, i) => {
-      const mark = marks.get(id);
-      nodes.push(
-        <Fragment key={`${match.index}-${id}`}>
-          {i > 0 && " "}
-          <span className={`cite-chip ${side}`}>
-            src:{id}
-            {mark === "ok" && " ✓"}
-            {mark === "bad" && " ✗"}
-          </span>
-        </Fragment>,
-      );
-    });
-    last = match.index + match[0].length;
-  }
-  nodes.push(text.slice(last));
-  return nodes;
-}
+export const TAGS: Record<Side, string> = { pro: "▲ PRO", con: "▼ CON" };
 
 export default function DebaterPanel({
   side,
@@ -63,18 +26,7 @@ export default function DebaterPanel({
   const latestTurn = [...state.turns].reverse().find((t) => t.side === side);
   const text = generating ? sideState.streaming : (latestTurn?.content ?? "");
 
-  const marks = new Map<string, "ok" | "bad">();
-  for (const claim of state.claims) {
-    if (claim.side !== side || !claim.source_id) continue;
-    if (claim.verdict === "supported") {
-      if (!marks.has(claim.source_id)) marks.set(claim.source_id, "ok");
-    } else if (
-      claim.verdict === "not_found" ||
-      claim.verdict === "source_not_found"
-    ) {
-      marks.set(claim.source_id, "bad");
-    }
-  }
+  const marks = buildCitationMarks(state.claims, side);
 
   // a side that has spoken but never once researched is a signal, not
   // decoration (the design renders CON's 0/3 in red for exactly this)
