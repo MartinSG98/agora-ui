@@ -1,5 +1,6 @@
-// Typed client for the agora-backend API. The dev server proxies these
-// paths to :8000 (vite.config.ts), so all calls are same-origin relative.
+// Typed client for the agora-backend API. Calls go out under /api; the
+// dev proxy strips the prefix and forwards to :8000 (vite.config.ts), so
+// API paths never collide with the SPA's page routes.
 
 import type {
   CreateDebateRequest,
@@ -35,8 +36,10 @@ export class ApiError extends Error {
   }
 }
 
+export const API_PREFIX = "/api";
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(path, init);
+  const response = await fetch(`${API_PREFIX}${path}`, init);
   if (!response.ok) {
     let detail = `${response.status} ${response.statusText}`;
     try {

@@ -3,6 +3,7 @@
 // and a typed payload. Events are append-only and ordered by seq, which
 // is what makes dedupe and replay trivial (ADR 0005).
 
+import { API_PREFIX } from "./client";
 import type { ClaimVerdict, DebatePhase, Side, Winner } from "./types";
 
 export interface JudgeResultPayload {
@@ -70,7 +71,7 @@ export function eventStreamUrl(
   if (options.replay) params.set("replay", "1");
   if (options.delay !== undefined) params.set("delay", String(options.delay));
   const query = params.toString();
-  return `/debates/${debateId}/events${query ? `?${query}` : ""}`;
+  return `${API_PREFIX}/debates/${debateId}/events${query ? `?${query}` : ""}`;
 }
 
 export function parseEvent(data: string): AgoraEvent {
