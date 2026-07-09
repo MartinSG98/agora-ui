@@ -11,7 +11,8 @@ export type SideStatus = "idle" | "generating";
 export interface SideState {
   status: SideStatus;
   streaming: string;
-  evidenceCalls: number;
+  evidenceCalls: number; // this turn (backend quota is per phase turn)
+  evidenceTotal: number; // whole debate (0 here means "never researched")
 }
 
 export interface TickerEntry {
@@ -51,6 +52,7 @@ const emptySide = (): SideState => ({
   status: "idle",
   streaming: "",
   evidenceCalls: 0,
+  evidenceTotal: 0,
 });
 
 export const initialStreamState: StreamState = {
@@ -101,11 +103,14 @@ function applyEvent(state: StreamState, event: AgoraEvent): StreamState {
         round: event.payload.round,
       };
     case "turn_started":
+      // evidenceCalls resets per turn: the backend quota is per phase turn,
+      // so the footer shows spend for the statement in progress
       return {
         ...state,
         sides: withSide(state, event.payload.side, {
           status: "generating",
           streaming: "",
+          evidenceCalls: 0,
         }),
       };
     case "message_delta": {
@@ -142,6 +147,7 @@ function applyEvent(state: StreamState, event: AgoraEvent): StreamState {
         ...state,
         sides: withSide(state, side, {
           evidenceCalls: state.sides[side].evidenceCalls + 1,
+          evidenceTotal: state.sides[side].evidenceTotal + 1,
         }),
       };
     }

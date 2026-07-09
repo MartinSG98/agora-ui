@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppShell from "./components/AppShell";
 import { ConfigProvider } from "./context/ConfigContext";
-import ArenaPage from "./pages/ArenaPage";
+import ArenaPage from "./pages/arena/ArenaPage";
 import HistoryPage from "./pages/HistoryPage";
 import SetupPage from "./pages/setup/SetupPage";
 

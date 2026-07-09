@@ -84,6 +84,34 @@ describe("debateStreamReducer", () => {
     expect(state.sides.con.streaming).toBe("First chunk second chunk");
   });
 
+  it("resets the evidence counter when a new turn starts", () => {
+    seq = 0;
+    const state = run([
+      event({
+        type: "turn_started",
+        payload: { side: "pro", phase: "opening", round: 0 },
+      }),
+      event({
+        type: "evidence_used",
+        payload: { side: "pro", tool: "search_sources", arguments: {} },
+      }),
+      event({
+        type: "evidence_used",
+        payload: { side: "pro", tool: "get_source_content", arguments: {} },
+      }),
+      event({
+        type: "turn_completed",
+        payload: { side: "pro", phase: "opening", round: 0, content: "x" },
+      }),
+      event({
+        type: "turn_started",
+        payload: { side: "pro", phase: "rebuttal", round: 1 },
+      }),
+    ]);
+    expect(state.sides.pro.evidenceCalls).toBe(0); // fresh quota this turn
+    expect(state.sides.pro.evidenceTotal).toBe(2); // debate-wide count kept
+  });
+
   it("drops duplicate seq from reconnect history overlap", () => {
     seq = 0;
     const first = event({
