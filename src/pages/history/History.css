@@ -1,0 +1,125 @@
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 860px;
+}
+
+.history-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  padding: 14px 18px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 150ms ease-out;
+  text-align: left;
+  font-family: var(--font-ui);
+  width: 100%;
+}
+
+.history-row:hover {
+  border-color: var(--border-strong);
+}
+
+.history-topic {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.badge {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--radius-chip);
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+}
+
+.badge.pro {
+  color: var(--pro);
+  background: var(--pro-fill);
+  border-color: transparent;
+}
+
+.badge.con {
+  color: var(--con);
+  background: var(--con-fill);
+  border-color: transparent;
+}
+
+.badge.running {
+  color: var(--accent-text);
+  background: var(--accent-fill);
+  border-color: var(--accent);
+}
+
+.badge.failed {
+  color: var(--bad);
+}
+
+.swap-detail {
+  background: var(--bg-recessed);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+  margin-top: -10px;
+  padding: 14px 18px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.swap-verdict {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--accent-text);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.swap-runs {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.swap-run-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-text);
+  text-decoration: none;
+}
+
+.swap-run-link:hover {
+  text-decoration: underline;
+}
+
+.history-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
