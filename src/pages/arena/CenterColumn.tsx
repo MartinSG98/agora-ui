@@ -1,21 +1,12 @@
 // Center of the stage: the blind judge card (verdict reveal after
 // judging), the fact-checker feed, and the rubric weights.
 
+import { Link, useParams } from "react-router-dom";
 import type { ClaimVerdictValue, Winner } from "../../api/types";
+import { useConfig } from "../../context/ConfigContext";
 import { useDebate } from "../../stream/DebateStreamContext";
 
-// Mirrors mcp-servers/rules/data/rubric_default.json in the backend repo;
-// the judge reads it over MCP, the UI only visualises the weights.
-const RUBRIC: [string, number][] = [
-  ["argument", 0.25],
-  ["evidence", 0.2],
-  ["rebuttal", 0.2],
-  ["consistency", 0.15],
-  ["relevance", 0.1],
-  ["compliance", 0.1],
-];
-
-const SHORT_CATEGORY: Record<string, string> = {
+export const SHORT_CATEGORY: Record<string, string> = {
   argument_quality: "argument",
   evidence_quality: "evidence",
   rebuttal_effectiveness: "rebuttal",
@@ -42,6 +33,7 @@ function winnerClass(winner: Winner): string {
 
 export function JudgeCard() {
   const { state } = useDebate();
+  const { debateId } = useParams();
   const judge = state.judge;
 
   return (
@@ -82,6 +74,11 @@ export function JudgeCard() {
             ))}
           </div>
           <div className="verdict-moment">{judge.decisive_moment}</div>
+          {debateId && (
+            <Link className="results-link" to={`/debates/${debateId}/results`}>
+              full results →
+            </Link>
+          )}
         </div>
       )}
     </div>
@@ -131,18 +128,26 @@ export function FactCheckFeed() {
 }
 
 function RubricCard() {
+  // The same MCP resource the judge scores against, via GET /rubric —
+  // the UI cannot drift from what is actually judged.
+  const { rubric } = useConfig();
+  if (rubric === null) return null;
+
   return (
     <div className="rubric-card">
       <div className="label" style={{ marginBottom: 10 }}>
         RUBRIC WEIGHTS
       </div>
       <div className="rubric-rows">
-        {RUBRIC.map(([name, weight]) => (
+        {Object.entries(rubric.categories).map(([name, spec]) => (
           <div key={name} className="rubric-row">
-            <span className="rubric-name">{name}</span>
-            <span className="rubric-bar" style={{ width: `${weight * 100}%` }} />
+            <span className="rubric-name">{SHORT_CATEGORY[name] ?? name}</span>
+            <span
+              className="rubric-bar"
+              style={{ width: `${spec.weight * 100}%` }}
+            />
             <span className="rubric-weight">
-              {weight.toFixed(2).replace(/^0/, "")}
+              {spec.weight.toFixed(2).replace(/^0/, "")}
             </span>
           </div>
         ))}

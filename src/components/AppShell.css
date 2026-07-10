@@ -48,6 +48,20 @@
   color: var(--accent-text);
 }
 
+.mode-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-chip);
+  padding: 4px 10px;
+}
+
+.mode-badge.live {
+  color: var(--warn);
+  border-color: var(--warn);
+}
+
 .shell-main {
   flex: 1;
   padding: 20px var(--gutter) var(--gutter);

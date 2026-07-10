@@ -2,9 +2,12 @@
 // outlet. Matches the header language from the design handoff.
 
 import { NavLink, Outlet } from "react-router-dom";
+import { useConfig } from "../context/ConfigContext";
 import "./AppShell.css";
 
 export default function AppShell() {
+  const { runtime } = useConfig();
+
   return (
     <div className="shell">
       <header className="shell-header">
@@ -29,6 +32,11 @@ export default function AppShell() {
           >
             replay gallery
           </NavLink>
+          {runtime && (
+            <span className={`mode-badge${runtime.mock_mode ? "" : " live"}`}>
+              mock_mode={runtime.mock_mode ? 1 : 0}
+            </span>
+          )}
         </nav>
       </header>
       <main className="shell-main">

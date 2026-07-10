@@ -3,6 +3,7 @@
 // fact-check interjections), FACTS, JUDGE and EVENTS.
 
 import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import type { ClaimVerdictValue } from "../../api/types";
 import { useDebate } from "../../stream/DebateStreamContext";
 import { FactCheckFeed, JudgeCard } from "./CenterColumn";
@@ -23,6 +24,7 @@ const INTERJECTION: Record<ClaimVerdictValue, { icon: string; label: string }> =
 
 function StageFeed() {
   const { state } = useDebate();
+  const { debateId } = useParams();
   const claims = state.claims;
 
   return (
@@ -81,15 +83,20 @@ function StageFeed() {
         );
       })}
 
-      {state.judge && (
+      {state.judge && debateId && (
         <div className="m-interjection">
-          <span>
-            ⚖ verdict:{" "}
-            {state.judge.winner === "draw"
-              ? "draw"
-              : `${state.judge.winner} wins`}{" "}
-            @ {state.judge.confidence.toFixed(2)} — see JUDGE tab
-          </span>
+          <Link
+            to={`/debates/${debateId}/results`}
+            style={{ textDecoration: "none" }}
+          >
+            <span>
+              ⚖ verdict:{" "}
+              {state.judge.winner === "draw"
+                ? "draw"
+                : `${state.judge.winner} wins`}{" "}
+              @ {state.judge.confidence.toFixed(2)} · full results →
+            </span>
+          </Link>
         </div>
       )}
 
