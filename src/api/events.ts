@@ -22,6 +22,7 @@ export type EventPayloads = {
     models: Record<string, string>;
     rebuttal_rounds: number;
   };
+  awaiting_advance: { next: string };
   phase_changed: { phase: DebatePhase; round: number };
   turn_started: { side: Side; phase: DebatePhase; round: number };
   message_delta: { side: Side; text: string };
@@ -52,6 +53,7 @@ export type AgoraEvent = {
 
 export const EVENT_TYPES: EventType[] = [
   "debate_started",
+  "awaiting_advance",
   "phase_changed",
   "turn_started",
   "message_delta",

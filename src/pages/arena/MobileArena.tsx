@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { ClaimVerdictValue } from "../../api/types";
 import { useDebate } from "../../stream/DebateStreamContext";
+import AdvanceBar from "./AdvanceBar";
 import { FactCheckFeed, JudgeCard } from "./CenterColumn";
 import { buildCitationMarks, renderStatement } from "./citations";
 import { TAGS } from "./DebaterPanel";
@@ -127,6 +128,7 @@ function EventsList() {
 
 export default function MobileArena() {
   const { state, mode } = useDebate();
+  const { debateId } = useParams();
   const [tab, setTab] = useState<Tab>("stage");
   const open = state.connected;
 
@@ -165,6 +167,8 @@ export default function MobileArena() {
           </span>
         </div>
       </div>
+
+      {debateId && <AdvanceBar debateId={debateId} />}
 
       {state.failed !== null && (
         <div className="failed-banner">debate failed: {state.failed}</div>

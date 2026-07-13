@@ -9,6 +9,7 @@ import {
   useDebate,
 } from "../../stream/DebateStreamContext";
 import "./Arena.css";
+import AdvanceBar from "./AdvanceBar";
 import CenterColumn from "./CenterColumn";
 import DebaterPanel from "./DebaterPanel";
 import EventTicker from "./EventTicker";
@@ -45,6 +46,7 @@ function ArenaView({ debateId }: { debateId: string }) {
     <div>
       <StatusStrip debateId={debateId} />
       <PhasePipeline />
+      <AdvanceBar debateId={debateId} />
       {state.failed !== null && (
         <div className="failed-banner">debate failed: {state.failed}</div>
       )}

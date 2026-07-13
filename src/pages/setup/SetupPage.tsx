@@ -28,6 +28,7 @@ export default function SetupPage() {
   const [rounds, setRounds] = useState(2);
   const [lineup, setLineup] = useState<Record<string, string>>({});
   const [positionSwap, setPositionSwap] = useState(false);
+  const [stepMode, setStepMode] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -86,6 +87,8 @@ export default function SetupPage() {
       format: formatName,
       models: lineup,
       rebuttal_rounds: rounds,
+      // swap pairs run automatically; step mode applies to single debates
+      step_mode: !positionSwap && stepMode,
     };
     try {
       if (positionSwap) {
@@ -226,6 +229,22 @@ export default function SetupPage() {
             <span className="swap-text">
               Also run <strong>position swap</strong> — same topic, sides
               exchanged. Separates model advantage from position bias.
+            </span>
+          </div>
+          <div className="swap-row" style={{ opacity: positionSwap ? 0.45 : 1 }}>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={stepMode && !positionSwap}
+              disabled={positionSwap}
+              className={`toggle${stepMode && !positionSwap ? " on" : ""}`}
+              onClick={() => setStepMode((value) => !value)}
+            >
+              <span className="knob" />
+            </button>
+            <span className="swap-text">
+              <strong>Step mode</strong> — pause before every turn and advance
+              manually from the arena. Not available with position swap.
             </span>
           </div>
         </section>

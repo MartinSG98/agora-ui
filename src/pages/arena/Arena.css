@@ -504,6 +504,54 @@
   color: var(--accent);
 }
 
+/* step mode advance bar */
+
+.advance-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  background: var(--accent-fill);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-panel);
+  padding: 10px 16px;
+}
+
+.advance-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.advance-text strong {
+  color: var(--accent-text);
+  font-weight: 400;
+}
+
+.advance-btn {
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  border: none;
+  border-radius: var(--radius-inner);
+  background: var(--accent);
+  color: var(--bg-page);
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: background 150ms ease-out;
+}
+
+.advance-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.advance-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
 /* mobile arena (design screen 2b) */
 
 .m-arena {

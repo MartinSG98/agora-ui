@@ -44,6 +44,8 @@ export interface StreamState {
   completed: boolean;
   failed: string | null;
   ticker: TickerEntry[];
+  // step mode: name of the paused unit awaiting POST /advance, else null
+  awaitingAdvance: string | null;
 }
 
 const TICKER_LIMIT = 80;
@@ -71,6 +73,7 @@ export const initialStreamState: StreamState = {
   completed: false,
   failed: null,
   ticker: [],
+  awaitingAdvance: null,
 };
 
 export type StreamAction =
@@ -156,9 +159,10 @@ function applyEvent(state: StreamState, event: AgoraEvent): StreamState {
     case "judge_result":
       return { ...state, judge: event.payload };
     case "debate_completed":
-      return { ...state, completed: true };
+      // terminal events carry the phase change implicitly
+      return { ...state, completed: true, phase: "complete" };
     case "debate_failed":
-      return { ...state, failed: event.payload.error };
+      return { ...state, failed: event.payload.error, phase: "failed" };
     default:
       return state;
   }
@@ -184,6 +188,9 @@ export function debateStreamReducer(
       return {
         ...next,
         seq: event.seq,
+        // a pause holds only until the next event proves the unit ran
+        awaitingAdvance:
+          event.type === "awaiting_advance" ? event.payload.next : null,
         ticker: [
           ...state.ticker.slice(-(TICKER_LIMIT - 1)),
           { seq: event.seq, type: event.type, flagged },
