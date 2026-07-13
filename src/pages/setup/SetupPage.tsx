@@ -296,7 +296,7 @@ export default function SetupPage() {
           </button>
           <div className="launch-caption">
             {runtime.mock_mode
-              ? "mock mode · $0.00 · deterministic replay stored"
+              ? "mock mode · $0.00 · scripted demo content — your topic is recorded but not argued"
               : "live mode · ~$0.02 per debate · replay stored"}
           </div>
           {submitError && <div className="launch-error">{submitError}</div>}
