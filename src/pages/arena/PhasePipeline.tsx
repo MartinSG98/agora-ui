@@ -64,7 +64,7 @@ export default function PhasePipeline() {
         <PhaseChips />
       </div>
       {state.topic && (
-        <div className="pipeline-motion">
+        <div className="pipeline-motion" title={state.topic}>
           motion: <strong>“{state.topic}”</strong>
         </div>
       )}

@@ -60,7 +60,7 @@
 .pipeline-chips {
   display: flex;
   align-items: center;
-  flex: 1;
+  flex: 0 1 auto;
   flex-wrap: wrap;
   row-gap: 8px;
 }
@@ -98,8 +98,9 @@
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--text-muted);
-  flex: none;
-  max-width: 330px;
+  flex: 1 1 200px;
+  min-width: 0;
+  text-align: right;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
