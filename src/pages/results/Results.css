@@ -1,0 +1,239 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 1224px;
+}
+
+/* verdict banner */
+
+.results-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-panel);
+  padding: 18px 22px;
+  flex-wrap: wrap;
+}
+
+.results-motion {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.results-matchup {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.results-winner {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.results-winner.pro {
+  color: var(--pro);
+}
+
+.results-winner.con {
+  color: var(--con);
+}
+
+.results-winner.draw {
+  color: var(--text-secondary);
+}
+
+.results-confidence {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 4px;
+}
+
+.results-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.results-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-inner);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 150ms ease-out, color 150ms ease-out;
+}
+
+.results-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+/* grid */
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.results-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  padding: 16px 18px;
+}
+
+.radar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  margin-top: 4px;
+}
+
+.radar-legend .pro {
+  color: var(--pro);
+}
+
+.radar-legend .con {
+  color: var(--con);
+}
+
+.reasoning-block {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--text-body);
+}
+
+.reasoning-block + .label {
+  margin-top: 14px;
+}
+
+/* claims */
+
+.claims-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* metrics table */
+
+.metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.metrics-table th {
+  text-align: left;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  padding: 4px 8px 8px 0;
+}
+
+.metrics-table td {
+  color: var(--text-secondary);
+  padding: 4px 8px 4px 0;
+  border-top: 1px solid var(--border);
+}
+
+.metrics-table td:first-child {
+  color: var(--text-body);
+}
+
+.metrics-table tr.totals td {
+  border-top: 1px solid var(--border-strong);
+  color: var(--text-primary);
+}
+
+/* notebooks */
+
+.notebooks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .notebooks {
+    grid-template-columns: 1fr;
+  }
+}
+
+.notebook {
+  background: var(--bg-recessed);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  padding: 14px 16px;
+}
+
+.notebook.pro {
+  border-top: 3px solid var(--pro);
+}
+
+.notebook.con {
+  border-top: 3px solid var(--con);
+}
+
+.note {
+  border-top: 1px solid var(--border);
+  padding: 10px 0;
+}
+
+.note:first-of-type {
+  border-top: none;
+}
+
+.note-head {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.note-content {
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  max-height: 130px;
+  overflow-y: auto;
+}
+
+.notebook-empty {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}

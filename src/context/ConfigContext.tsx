@@ -1,6 +1,7 @@
-// App-wide backend configuration: model registry, allowlist and debate
-// formats. Fetched once at startup and read anywhere via useConfig(), so
-// no component ever threads this data through props.
+// App-wide backend configuration: model registry, debate formats, runtime
+// config (mock mode + hard limits) and the scoring rubric. Fetched once at
+// startup and read anywhere via useConfig(), so no component ever threads
+// this data through props — and nothing about the backend is hardcoded.
 
 import {
   createContext,
@@ -12,13 +13,19 @@ import {
 import {
   fetchFormats,
   fetchModels,
+  fetchRubric,
+  fetchRuntimeConfig,
   type DebateFormat,
   type ModelsResponse,
+  type Rubric,
+  type RuntimeConfig,
 } from "../api/client";
 
 interface ConfigState {
   models: ModelsResponse | null;
   formats: DebateFormat[];
+  runtime: RuntimeConfig | null;
+  rubric: Rubric | null;
   loading: boolean;
   error: string | null;
 }
@@ -29,16 +36,23 @@ export function ConfigProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<ConfigState>({
     models: null,
     formats: [],
+    runtime: null,
+    rubric: null,
     loading: true,
     error: null,
   });
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([fetchModels(), fetchFormats()])
-      .then(([models, formats]) => {
+    Promise.all([
+      fetchModels(),
+      fetchFormats(),
+      fetchRuntimeConfig(),
+      fetchRubric(),
+    ])
+      .then(([models, formats, runtime, rubric]) => {
         if (!cancelled) {
-          setState({ models, formats, loading: false, error: null });
+          setState({ models, formats, runtime, rubric, loading: false, error: null });
         }
       })
       .catch((error: Error) => {
@@ -46,6 +60,8 @@ export function ConfigProvider({ children }: { children: ReactNode }) {
           setState({
             models: null,
             formats: [],
+            runtime: null,
+            rubric: null,
             loading: false,
             error: `Backend unreachable (${error.message}). Is agora-backend running on :8000?`,
           });

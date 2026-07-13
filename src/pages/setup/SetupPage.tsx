@@ -11,16 +11,6 @@ import "./SetupPage.css";
 
 const TOPIC_MIN = 8;
 const TOPIC_MAX = 300;
-const MAX_REBUTTAL_ROUNDS = 2;
-
-// Mirrors HardLimits in the backend's config.py. Display only; the
-// backend enforces these regardless of what any client shows.
-const HARD_LIMITS: [string, number][] = [
-  ["max_response_tokens", 600],
-  ["evidence_per_phase", 3],
-  ["tool_loop_iterations", 6],
-  ["judge_retries", 1],
-];
 
 const ROLES: { key: string; label: string; colorVar: string }[] = [
   { key: "debater_pro", label: "▲ DEBATER_PRO", colorVar: "var(--pro)" },
@@ -30,7 +20,7 @@ const ROLES: { key: string; label: string; colorVar: string }[] = [
 ];
 
 export default function SetupPage() {
-  const { models, formats, loading, error } = useConfig();
+  const { models, formats, runtime, loading, error } = useConfig();
   const navigate = useNavigate();
 
   const [topic, setTopic] = useState("");
@@ -41,20 +31,22 @@ export default function SetupPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  const maxRounds = runtime?.limits.max_rebuttal_rounds ?? 2;
+
   // Seed the form from backend config once it arrives.
   useEffect(() => {
     if (models && formats.length > 0 && formatName === null) {
       const initial = formats.find((f) => f.name === "oxford") ?? formats[0];
       setFormatName(initial.name);
-      setRounds(Math.min(initial.rebuttal_rounds, MAX_REBUTTAL_ROUNDS));
+      setRounds(Math.min(initial.rebuttal_rounds, maxRounds));
       setLineup(models.defaults);
     }
-  }, [models, formats, formatName]);
+  }, [models, formats, formatName, maxRounds]);
 
   if (loading) {
     return <div className="label">loading config…</div>;
   }
-  if (error || !models) {
+  if (error || !models || !runtime) {
     return (
       <div className="panel" style={{ padding: 20, maxWidth: 560 }}>
         <p style={{ color: "var(--bad)", fontSize: 13 }}>{error}</p>
@@ -74,9 +66,16 @@ export default function SetupPage() {
     setFormatName(name);
     const format = formats.find((f) => f.name === name);
     if (format) {
-      setRounds(Math.min(format.rebuttal_rounds, MAX_REBUTTAL_ROUNDS));
+      setRounds(Math.min(format.rebuttal_rounds, maxRounds));
     }
   }
+
+  const limitRows: [string, number][] = [
+    ["max_response_tokens", runtime.limits.max_response_tokens],
+    ["evidence_per_phase", runtime.limits.max_evidence_requests_per_phase],
+    ["tool_loop_iterations", runtime.limits.max_tool_loop_iterations],
+    ["judge_retries", runtime.limits.judge_retries],
+  ];
 
   async function launch() {
     if (!topicValid || submitting || !formatName) return;
@@ -158,7 +157,7 @@ export default function SetupPage() {
               REBUTTAL ROUNDS
             </span>
             <div className="rounds-options">
-              {[0, 1, 2].map((value) => (
+              {Array.from({ length: maxRounds + 1 }, (_, value) => (
                 <button
                   key={value}
                   type="button"
@@ -170,7 +169,7 @@ export default function SetupPage() {
               ))}
             </div>
             <span className="rounds-note">
-              hard limit: {MAX_REBUTTAL_ROUNDS} — enforced in code, not prompts
+              hard limit: {maxRounds} — enforced in code, not prompts
             </span>
           </div>
         </section>
@@ -254,7 +253,7 @@ export default function SetupPage() {
             HARD LIMITS
           </div>
           <div className="limits-list">
-            {HARD_LIMITS.map(([key, value]) => (
+            {limitRows.map(([key, value]) => (
               <div key={key} className="limit-row">
                 <span className="limit-key">{key}</span>
                 <span>{value}</span>
@@ -277,7 +276,9 @@ export default function SetupPage() {
                 : "START DEBATE →"}
           </button>
           <div className="launch-caption">
-            $0.00 mock · ~$0.02 live · deterministic replay stored
+            {runtime.mock_mode
+              ? "mock mode · $0.00 · deterministic replay stored"
+              : "live mode · ~$0.02 per debate · replay stored"}
           </div>
           {submitError && <div className="launch-error">{submitError}</div>}
         </div>

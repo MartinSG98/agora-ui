@@ -25,6 +25,25 @@ export interface DebateFormat {
   rules: string[];
 }
 
+export interface HardLimits {
+  max_rebuttal_rounds: number;
+  max_response_tokens: number;
+  max_evidence_requests_per_phase: number;
+  max_tool_loop_iterations: number;
+  judge_retries: number;
+}
+
+export interface RuntimeConfig {
+  mock_mode: boolean;
+  limits: HardLimits;
+}
+
+export interface Rubric {
+  name: string;
+  scale: { min: number; max: number };
+  categories: Record<string, { weight: number; description: string }>;
+}
+
 /** Error carrying the backend's `detail` message, e.g. allowlist rejections. */
 export class ApiError extends Error {
   constructor(
@@ -71,6 +90,14 @@ export function fetchModels(): Promise<ModelsResponse> {
 export async function fetchFormats(): Promise<DebateFormat[]> {
   const data = await request<{ formats: DebateFormat[] }>("/formats");
   return data.formats;
+}
+
+export function fetchRuntimeConfig(): Promise<RuntimeConfig> {
+  return request<RuntimeConfig>("/config");
+}
+
+export function fetchRubric(): Promise<Rubric> {
+  return request<Rubric>("/rubric");
 }
 
 // -- debates ------------------------------------------------------------------
