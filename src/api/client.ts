@@ -115,6 +115,11 @@ export function getDebate(debateId: string): Promise<Debate> {
   return request<Debate>(`/debates/${debateId}`);
 }
 
+/** Release the next unit of a step-mode debate. */
+export function advanceDebate(debateId: string): Promise<{ advanced: boolean }> {
+  return post<{ advanced: boolean }>(`/debates/${debateId}/advance`, {});
+}
+
 export function getMetrics(debateId: string): Promise<Metrics> {
   return request<Metrics>(`/debates/${debateId}/metrics`);
 }

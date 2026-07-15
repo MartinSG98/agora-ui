@@ -150,6 +150,22 @@ describe("debateStreamReducer", () => {
     expect(state.claims[0].verdict).toBe("not_found");
   });
 
+  it("tracks step-mode pauses until the next event clears them", () => {
+    seq = 0;
+    const paused = run([
+      event({ type: "awaiting_advance", payload: { next: "pro opening" } }),
+    ]);
+    expect(paused.awaitingAdvance).toBe("pro opening");
+
+    const resumed = [
+      event({
+        type: "turn_started",
+        payload: { side: "pro", phase: "opening", round: 0 },
+      }),
+    ].reduce(debateStreamReducer, paused);
+    expect(resumed.awaitingAdvance).toBeNull();
+  });
+
   it("records judge result and terminal states", () => {
     seq = 0;
     const state = run([
@@ -168,5 +184,6 @@ describe("debateStreamReducer", () => {
     ]);
     expect(state.judge?.winner).toBe("pro");
     expect(state.completed).toBe(true);
+    expect(state.phase).toBe("complete"); // COMPLETE pipeline chip lights up
   });
 });

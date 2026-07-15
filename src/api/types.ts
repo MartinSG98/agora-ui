@@ -112,6 +112,7 @@ export interface CreateDebateRequest {
   format?: string;
   models?: Record<string, string>;
   rebuttal_rounds?: number;
+  step_mode?: boolean;
 }
 
 export interface PositionSwapRun {
