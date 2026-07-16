@@ -1,5 +1,7 @@
 # Agora UI
 
+![CI](https://github.com/MartinSG98/agora-ui/actions/workflows/ci.yml/badge.svg)
+
 React frontend for [Agora](https://github.com/MartinSG98/agora-backend), a multi-agent debate and evaluation platform where two LLM debaters argue a motion, a fact-checker verifies their citations against real sources, and a blind judge scores the transcript. This UI is the control room for that machinery.
 
 The visual direction is called Control Room, a dark ops-console look where the state machine, the SSE event stream and the evaluation signals are front and center. The full design handoff lives in [docs/design/handoff.md](docs/design/handoff.md) and the pixel reference is [docs/design/debate-arena.dc.html](docs/design/debate-arena.dc.html), which opens in any browser.
